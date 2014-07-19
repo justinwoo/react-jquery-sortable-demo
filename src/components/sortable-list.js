@@ -18,5 +18,10 @@ var SortableList = module.exports = React.createClass({
         {children}
       </ul>
     );
+  },
+
+  componentWillUnmount: function () {
+    var node = this.refs.myList.getDOMNode();
+    $(node).sortable('destroy');
   }
 });

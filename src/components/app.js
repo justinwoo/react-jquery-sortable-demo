@@ -10,6 +10,16 @@ var App = module.exports = React.createClass({
     });
   },
 
+  removeElement: function () {
+    var items = this.state.items;
+    if (items.length > 0) {
+      items.pop();
+      this.setState({
+        items: items
+      });
+    }
+  },
+
   getInitialState: function () {
     return {
       items: [],
@@ -21,7 +31,7 @@ var App = module.exports = React.createClass({
     for (var i = 0, l = 5; i < l; i ++) {
       appendItem.call(this);
     }
-    setInterval(appendItem.bind(this), 2000);
+    setInterval(appendItem.bind(this), 250);
   },
 
   render: function () {
@@ -35,6 +45,7 @@ var App = module.exports = React.createClass({
       <div>
         <h1>jquery sortable demo</h1>
         <button onClick={this.toggleList}>Toggle List</button>
+        <button onClick={this.removeElement}>Remove an element</button>
         {this.state.showList ? list : null}
       </div>
     );
@@ -43,7 +54,7 @@ var App = module.exports = React.createClass({
 
 function appendItem() {
   var items = this.state.items;
-  if (counter > 10) {
+  if (items.length > 10) {
     return false;
   }
   items.push(<Item key={Date.now()} counter={counter++}/>);
